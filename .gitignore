@@ -10,9 +10,11 @@
 # Ignore everything in Assets by default
 Assets/*
 
-# But include our essential files
-!Assets/*.cs
-!Assets/*.cs.meta
+# Include all C# scripts and their meta files in any subfolder
+!Assets/**/*.cs
+!Assets/**/*.cs.meta
+
+# Include OAuth-specific files
 !Assets/callback.html
 !Assets/callback.html.meta
 !Assets/client-metadata.json
