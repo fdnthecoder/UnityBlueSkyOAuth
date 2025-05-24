@@ -88,8 +88,7 @@ public class BlueskyOAuthManager : MonoBehaviour
                 .Replace('/', '_');
         }
         
-        Debug.Log($"[BlueskyAuth] PKCE Code Verifier: {codeVerifier.Substring(0, Math.Min(10, codeVerifier.Length))}...");
-        Debug.Log($"[BlueskyAuth] PKCE Code Challenge: {codeChallenge.Substring(0, Math.Min(10, codeChallenge.Length))}...");
+        Debug.Log("[BlueskyAuth] PKCE parameters generated successfully");
     }
     
     /// <summary>
@@ -110,7 +109,6 @@ public class BlueskyOAuthManager : MonoBehaviour
         
         // First, try to get the authorization server metadata
         string metadataUrl = $"{bskyServiceUrl}/.well-known/oauth-authorization-server";
-        Debug.Log($"[BlueskyAuth] Fetching metadata from: {metadataUrl}");
         
         using (UnityWebRequest request = UnityWebRequest.Get(metadataUrl))
         {
@@ -119,14 +117,11 @@ public class BlueskyOAuthManager : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string response = request.downloadHandler.text;
-                Debug.Log($"[BlueskyAuth] Metadata response: {response}");
                 
                 // Parse the JSON to extract endpoints
                 if (TryParseOAuthMetadata(response))
                 {
-                    Debug.Log($"[BlueskyAuth] Authorization endpoint: {authorizationEndpoint}");
-                    Debug.Log($"[BlueskyAuth] Token endpoint: {tokenEndpoint}");
-                    Debug.Log($"[BlueskyAuth] PAR endpoint: {parEndpoint}");
+                    Debug.Log("[BlueskyAuth] OAuth endpoints discovered successfully");
                     
                     // Check if PAR is required
                     if (!string.IsNullOrEmpty(parEndpoint))
@@ -238,7 +233,6 @@ public class BlueskyOAuthManager : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string response = request.downloadHandler.text;
-                Debug.Log($"[BlueskyAuth] PAR response: {response}");
                 
                 // Parse the request_uri from the response
                 string requestUri = ExtractRequestUri(response);
@@ -294,13 +288,11 @@ public class BlueskyOAuthManager : MonoBehaviour
     /// </summary>
     private void OpenAuthorizationUrlWithRequestUri(string requestUri)
     {
-        Debug.Log("[BlueskyAuth] Opening authorization URL with request_uri...");
+        Debug.Log("[BlueskyAuth] Opening authorization URL...");
         
         string authorizationUrl = $"{authorizationEndpoint}?" +
             $"client_id={Uri.EscapeDataString(clientId)}" +
             $"&request_uri={Uri.EscapeDataString(requestUri)}";
-        
-        Debug.Log($"[BlueskyAuth] Authorization URL with request_uri: {authorizationUrl}");
         
         try 
         {
@@ -319,7 +311,7 @@ public class BlueskyOAuthManager : MonoBehaviour
     /// </summary>
     private void OpenAuthorizationUrl()
     {
-        Debug.Log("[BlueskyAuth] Preparing standard authorization URL...");
+        Debug.Log("[BlueskyAuth] Opening authorization URL...");
 
         string authorizationUrl = $"{authorizationEndpoint}?" +
             $"client_id={Uri.EscapeDataString(clientId)}" +
@@ -329,8 +321,6 @@ public class BlueskyOAuthManager : MonoBehaviour
             $"&state={Uri.EscapeDataString(state)}" +
             $"&code_challenge={Uri.EscapeDataString(codeChallenge)}" +
             $"&code_challenge_method=S256";
-
-        Debug.Log($"[BlueskyAuth] Full authorization URL: {authorizationUrl}");
         
         try 
         {
