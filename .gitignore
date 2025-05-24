@@ -1,0 +1,30 @@
+# Ignore everything
+/*
+
+# But include these files
+!.gitignore
+!README.md
+!LICENSE*
+!Assets/
+
+# Ignore everything in Assets by default
+Assets/*
+
+# But include our essential files
+!Assets/*.cs
+!Assets/*.cs.meta
+!Assets/callback.html
+!Assets/callback.html.meta
+!Assets/client-metadata.json
+!Assets/client-metadata.json.meta
+
+# Ignore Unity generated directories
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+.vs/
+.vscode/

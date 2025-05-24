@@ -1,0 +1,12 @@
+{
+    "client_id": "https://pub-ab450520482b446490a31a100e39cd5e.r2.dev/client-metadata.json",
+    "client_name": "Unity Bluesky OAuth Test",
+    "client_uri": "https://pub-ab450520482b446490a31a100e39cd5e.r2.dev",
+    "redirect_uris": ["https://pub-ab450520482b446490a31a100e39cd5e.r2.dev/callback.html"],
+    "scope": "atproto",
+    "grant_types": ["authorization_code", "refresh_token"],
+    "response_types": ["code"],
+    "token_endpoint_auth_method": "none",
+    "application_type": "web",
+    "dpop_bound_access_tokens": true
+}
